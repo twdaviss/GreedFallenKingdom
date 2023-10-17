@@ -4,11 +4,11 @@ public class TierOneRightButton : UpgradeMenuButton
 {
     public override void AppliedEffect()
     {
-        Debug.Log("Applied Tier 01 Right Effect");
+        Player.Instance.GetComponentInChildren<RangeAbility>().UpdateCurrentMaxCharge(1);
     }
 
     public override void RemoveEffect()
     {
-        Debug.Log("Removed Tier 01 Right Effect");
+        Player.Instance.GetComponentInChildren<RangeAbility>().UpdateCurrentMaxCharge(-1);
     }
 }
