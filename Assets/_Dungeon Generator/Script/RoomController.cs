@@ -68,28 +68,6 @@ public class RoomController : MonoBehaviour
         roomType[random].SetActive(true);
     }
 
-    //public void SetBossActive()
-    //{
-    //    if (currentRoomType == RoomType.boss)
-    //    {
-    //        SetAllRoomActiveFalse();
-    //        if (specialRoom != null) specialRoom.SetActive(true);
-    //        GetComponentInChildren<GateManager>().disableGate = true;
-    //        roomManager.bossSpawned = true;
-    //    }
-    //}
-
-    //public void SetShopActive()
-    //{
-    //    if (currentRoomType == RoomType.shop || currentRoomType == RoomType.abandonShop)
-    //    {
-    //        SetAllRoomActiveFalse();
-    //        if (specialRoom != null) specialRoom.SetActive(true);
-    //        GetComponentInChildren<GateManager>().disableGate = true;
-    //        roomManager.shopSpawned = true;
-
-    //    }
-    //}
     public void SetSpecialRoomActive()
     {
         if (currentRoomType == RoomType.boss)

@@ -26,7 +26,7 @@ public class RoomSpawner : MonoBehaviour
         {
             roomManager = FindObjectOfType<RoomManager>();
         }
-        if(roomManager.currentRooms.Count >= roomManager.maxRooms)
+        if(roomManager.currentRooms.Count > roomManager.maxRooms)
         {
             return;
         }
