@@ -26,6 +26,10 @@ public class RoomSpawner : MonoBehaviour
         {
             roomManager = FindObjectOfType<RoomManager>();
         }
+        if(roomManager.currentRooms.Count >= roomManager.maxRooms)
+        {
+            return;
+        }
         if (!spawned)
         {
             if (openingDirection == 1)
@@ -53,20 +57,9 @@ public class RoomSpawner : MonoBehaviour
     {
         GameObject newRoom;
         
-        if(roomManager.currentRooms.Count >= roomManager.maxRooms || length == 1)
-        {
-            newRoom = Instantiate(room[0], new Vector2(transform.position.x, transform.position.y), Quaternion.identity); //First room in list (index 0) must be dead end (T,B,R,L)
-            newRoom.transform.parent = this.transform.parent.parent;
-        }
-        else if (roomManager.currentRooms.Count < roomManager.minRooms)
+        if (roomManager.currentRooms.Count < roomManager.maxRooms)
         {
             int random = Random.Range(1, length);
-            newRoom = Instantiate(room[random], new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
-            newRoom.transform.parent = this.transform.parent.parent;
-        }
-        else
-        {
-            int random = Random.Range(0, length);
             newRoom = Instantiate(room[random], new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
             newRoom.transform.parent = this.transform.parent.parent;
         }

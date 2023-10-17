@@ -70,20 +70,16 @@ public class RoomManager : MonoBehaviour
         SpawnRoomType();
         if (bossSpawned && shopSpawned)
         {
-            //if (currentRooms.Count < 20)
-            //{
-            //    SceneControlManager.Instance.LoadScene("DemoSceneDungeon", Vector3.zero);
-            //}
-            //else
-            //{
-            //    aStar.SetActive(true);
-            //}
             RoomsFinished();
         }
     }
 
     private void LoadScene()
     {
+        bossSpawned = false;
+        shopSpawned = false;
+        currentRooms.Clear();
+
         GameObject newEntryRoom;
         foreach(Transform child in transform)
         {
@@ -112,6 +108,7 @@ public class RoomManager : MonoBehaviour
         {
             delaySpawnRoomType -= Time.deltaTime;
         }
+
     }
     private void SetBossRoom() // LOOPS UNTIL FIND THE FIRST NON NULL ROOM
     {
@@ -228,6 +225,11 @@ public class RoomManager : MonoBehaviour
     }
     public void RoomsFinished()
     {
+        if (currentRooms.Count < minRooms || currentRooms.Count > maxRooms)
+        {
+            LoadScene();
+            return;
+        }
         aStar.SetActive(true);
         if(onRoomsGenerated != null)
         {
