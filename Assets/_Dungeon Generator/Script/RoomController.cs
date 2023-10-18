@@ -42,7 +42,11 @@ public class RoomController : MonoBehaviour
     private void Awake()
     {
         roomManager = FindObjectOfType<RoomManager>();
-        roomManager.currentRooms.Add(this);
+        if (!roomManager.currentRoomTotal.Contains(this))
+        {
+            roomManager.currentRoomCount.Add(this);
+            roomManager.currentRoomTotal.Add(this);
+        }
 
         if (roomVariant == "T" || roomVariant == "L" || roomVariant == "R" || roomVariant == "B")
         {

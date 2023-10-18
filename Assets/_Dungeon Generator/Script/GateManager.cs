@@ -13,8 +13,10 @@ public class GateManager : MonoBehaviour
 
     [Header("Gate Data")]
     public bool playerInsideRoom = false;
+    public bool playerInLockZone = false;
     public bool clearedRoom = false;
     public bool disableGate = false;
+    public bool locked;
 
     [Header("Gate Referance")]
     [SerializeField] private GameObject roomVariants;
@@ -23,8 +25,14 @@ public class GateManager : MonoBehaviour
     private void Awake()
     {
         roomController = GetComponentInParent<RoomController>();
-        randomSpawnManager = GameObject.Find("RandomSpawnManager").GetComponent<RandomSpawnManager>();
-
+        if (!locked)
+        {
+            randomSpawnManager = GameObject.Find("RandomSpawnManager").GetComponent<RandomSpawnManager>();
+        }
+        else
+        {
+            //ActiveGates(true);
+        }
     }
 
     private void ActiveGates(bool active)
@@ -45,6 +53,10 @@ public class GateManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (locked)
+        {
+            return;
+        }
         if (collision.gameObject.CompareTag("Player") && collision.GetType().ToString() != Tags.CAPSULECOLLIDER2D && !playerInsideRoom)
         {
             playerInsideRoom = true;
@@ -86,6 +98,10 @@ public class GateManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (playerInLockZone)
+        {
+
+        }
         if (!playerInsideRoom) return;
 
         RoomEnemyCheckDelay();

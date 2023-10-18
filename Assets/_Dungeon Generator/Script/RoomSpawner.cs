@@ -9,24 +9,32 @@ public class RoomSpawner : MonoBehaviour
     [Tooltip(" 1 --> Need Bottom Door\r\n 2 --> Need Top Door\r\n 3 --> Need Left Door\r\n 4 --> Need Right Door")]
     [SerializeField] private int openingDirection;
     [SerializeField] public bool spawned = false;
+    [SerializeField] public bool destroyer;
 
     private float waitTime = 4F;
+   
 
     private void Start()
     {
-        Destroy(gameObject, waitTime);
-
+        if (!destroyer)
+        {
+            Destroy(gameObject, waitTime);
+            Invoke("Spawn", 0.05F);
+        }
         roomManager = FindObjectOfType<RoomManager>();
-        Invoke("Spawn", 0.05F);
     }
-
+   
     private void Spawn()
     {
+        if(roomManager.loops == 3)
+        {
+            return;
+        }
         if (roomManager == null)
         {
             roomManager = FindObjectOfType<RoomManager>();
         }
-        if(roomManager.currentRooms.Count > roomManager.maxRooms)
+        if(roomManager.currentRoomCount.Count >= roomManager.maxRooms)
         {
             return;
         }
@@ -57,7 +65,7 @@ public class RoomSpawner : MonoBehaviour
     {
         GameObject newRoom;
         
-        if (roomManager.currentRooms.Count < roomManager.maxRooms)
+        if (roomManager.currentRoomCount.Count < roomManager.maxRooms)
         {
             int random = Random.Range(1, length);
             newRoom = Instantiate(room[random], new Vector2(transform.position.x, transform.position.y), Quaternion.identity);
@@ -71,13 +79,22 @@ public class RoomSpawner : MonoBehaviour
         {
             roomManager = FindObjectOfType<RoomManager>();
         }
-        if (collision.CompareTag("RoomSpawnPoint") || collision.CompareTag("Destroyer"))
+        if (collision.CompareTag("RoomSpawnPoint"))
         {
-            if (collision.GetComponent<RoomSpawner>().spawned == false && spawned == false && transform.position.x != 0 && transform.position.y != 0)
+            if (collision.GetComponent<RoomSpawner>().spawned == true && spawned == false && transform.position.x != 0 && transform.position.y != 0)
             {
-                //InstantiateRandomRoom(roomManager.closedRooms.Length, roomManager.closedRooms);
                 Destroy(gameObject);
             }
+            else if (collision.GetComponent<RoomSpawner>().spawned == false && spawned == true && transform.position.x != 0 && transform.position.y != 0)
+            {
+                Destroy(collision.gameObject);
+            }
+
+            spawned = true;
+        }
+        if (collision.CompareTag("Destroyer"))
+        {
+            Destroy(gameObject);
 
             spawned = true;
         }
