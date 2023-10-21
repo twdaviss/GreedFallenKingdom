@@ -16,7 +16,7 @@ public class GateManager : MonoBehaviour
     public bool playerInLockZone = false;
     public bool clearedRoom = false;
     public bool disableGate = false;
-    public bool locked;
+    public bool locked = false;
 
     [Header("Gate Referance")]
     [SerializeField] private GameObject roomVariants;
@@ -29,12 +29,18 @@ public class GateManager : MonoBehaviour
         {
             randomSpawnManager = GameObject.Find("RandomSpawnManager").GetComponent<RandomSpawnManager>();
         }
+    }
+    private void Update()
+    {
+        if (locked)
+        {
+            ActiveGates(true);
+        }
         else
         {
-            //ActiveGates(true);
+            ActiveGates(false);
         }
     }
-
     private void ActiveGates(bool active)
     {
          gates.SetActive(active);
@@ -98,10 +104,6 @@ public class GateManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerInLockZone)
-        {
-
-        }
         if (!playerInsideRoom) return;
 
         RoomEnemyCheckDelay();
@@ -113,13 +115,5 @@ public class GateManager : MonoBehaviour
         {
             RoomCleared();
         }
-    }
-
-    private void RoomBossCheck()
-    {
-        if (roomController.currentRoomType != RoomType.boss) return;
-
-        //print("TEST");
-
     }
 }

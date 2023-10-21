@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7898106784794814315}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1982741790534200435
 BoxCollider2D:
@@ -215,7 +215,7 @@ Transform:
   - {fileID: 3648689456161604931}
   - {fileID: 4046143650484939465}
   m_Father: {fileID: 7898106784794814315}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6478101377928035737
 GameObject:
@@ -247,8 +247,8 @@ Transform:
   m_LocalScale: {x: 0.96465, y: 0.96465, z: 0.96465}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2408996249955528363}
   - {fileID: 3759211003528624930}
+  - {fileID: 2408996249955528363}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -294,7 +294,7 @@ MonoBehaviour:
   playerInLockZone: 0
   clearedRoom: 0
   disableGate: 0
-  locked: 1
+  locked: 0
   roomVariants: {fileID: 0}
   gates: {fileID: 5758849717937450301}
 --- !u!1 &6506945865013676168

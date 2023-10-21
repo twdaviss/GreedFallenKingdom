@@ -71967,6 +71967,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 399540625238344229}
     m_Modifications:
+    - target: {fileID: 652434581073750935, guid: 81b946a92ba610a4c9efbda6d57e7f45, type: 3}
+      propertyPath: locked
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6478101377928035737, guid: 81b946a92ba610a4c9efbda6d57e7f45, type: 3}
       propertyPath: m_Name
       value: __Gate Trigger

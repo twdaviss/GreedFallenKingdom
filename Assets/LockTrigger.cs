@@ -10,20 +10,31 @@ public class LockTrigger : MonoBehaviour
     {
         gateManager = transform.parent.GetComponent<GateManager>();
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F) && gateManager.playerInLockZone == true)
+        {
+            gateManager.locked = false;
+            Player.Instance.SetInteractPromtTextActive(false);
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && collision.GetType().ToString() != Tags.CAPSULECOLLIDER2D)
+        if (collision.gameObject.CompareTag("Player") && collision.GetType().ToString() != Tags.CAPSULECOLLIDER2D && gateManager.locked)
         {
+            Player.Instance.SetInteractPromtTextActive(true);
             gateManager.playerInLockZone = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && collision.GetType().ToString() != Tags.CAPSULECOLLIDER2D)
+        if (collision.gameObject.CompareTag("Player") && collision.GetType().ToString() != Tags.CAPSULECOLLIDER2D && gateManager.locked)
         {
+            Player.Instance.SetInteractPromtTextActive(false);
             gateManager.playerInLockZone = false;
         }
     }
+
 }

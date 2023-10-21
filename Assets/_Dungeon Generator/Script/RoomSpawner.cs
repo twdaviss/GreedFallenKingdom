@@ -16,12 +16,12 @@ public class RoomSpawner : MonoBehaviour
 
     private void Start()
     {
+        roomManager = FindObjectOfType<RoomManager>();
         if (!destroyer)
         {
             Destroy(gameObject, waitTime);
             Invoke("Spawn", 0.05F);
         }
-        roomManager = FindObjectOfType<RoomManager>();
     }
    
     private void Spawn()
