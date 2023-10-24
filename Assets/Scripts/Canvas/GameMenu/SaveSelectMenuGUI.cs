@@ -3,13 +3,14 @@ using UnityEngine.UI;
 
 public class SaveSelectMenuGUI : SingletonMonobehaviour<SaveSelectMenuGUI>
 {
+    [Header("Content")]
+    [SerializeField] private GameObject content = default;
+
+    [Header("Menu Content:")]
     [SerializeField] private Button ss_save01Button = default;
     [SerializeField] private Button ss_save02Button = default;
     [SerializeField] private Button ss_save03Button = default;
     [SerializeField] private Button ss_backButton = default;
-
-    [Header("Content")]
-    [SerializeField] private GameObject content = default;
 
     //===========================================================================
     private void OnEnable()
@@ -49,10 +50,6 @@ public class SaveSelectMenuGUI : SingletonMonobehaviour<SaveSelectMenuGUI>
     //===========================================================================
     public void SetActive(bool active)
     {
-        ss_save01Button.gameObject.SetActive(active);
-        ss_save02Button.gameObject.SetActive(active);
-        ss_save03Button.gameObject.SetActive(active);
-
-        ss_backButton.gameObject.SetActive(active);
+        content.SetActive(active);
     }
 }
