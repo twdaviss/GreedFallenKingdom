@@ -11,6 +11,11 @@ public class AudioSetting : MonoBehaviour
     [SerializeField] private Slider musicSlider;
     [SerializeField] private Slider SFXSlider;
 
+    [SerializeField] private AudioSource musicSource;
+    [SerializeField] private AudioSource SFXSource;
+    [SerializeField] private AudioClip[] musicSoundClips;
+    [SerializeField] private AudioClip[] SFXSoundClips;
+
     private void Start()
     {
         if (PlayerPrefs.HasKey("masterVolume") || PlayerPrefs.HasKey("musicVolume") || PlayerPrefs.HasKey("SFXVolume"))
@@ -60,5 +65,20 @@ public class AudioSetting : MonoBehaviour
             setSFXVolume();
         }
     }
-
+    public void playMusicClip(int index)
+    {
+        if (index - 1 >= 0)
+        {
+            musicSource.clip = musicSoundClips[index - 1];
+            musicSource.Play();
+        }
+    }
+    public void playSFXClip(int index)
+    {
+        if (index - 1 >= 0)
+        {
+            SFXSource.clip = SFXSoundClips[index - 1];
+            SFXSource.Play();
+        }
+    }
 }
