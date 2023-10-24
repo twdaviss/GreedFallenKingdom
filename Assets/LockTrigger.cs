@@ -6,7 +6,7 @@ public class LockTrigger : MonoBehaviour
 {
     // Start is called before the first frame update
     private GateManager gateManager;
-    private void Start()
+    private void Awake()
     {
         gateManager = transform.parent.GetComponent<GateManager>();
     }
