@@ -71,22 +71,22 @@ public class GateManager : MonoBehaviour
             {
                 return;
             }
-            for (int i = 0; i < roomVariants.transform.childCount; i++)
-            {
-                GameObject variant = roomVariants.transform.GetChild(i).gameObject;
-                if (!variant.activeSelf)
-                {
-                    continue;
-                }
-                if (variant.transform.Find("SpawnPointList") != null)
-                {
-                    randomSpawnPoints = variant.transform.Find("SpawnPointList").gameObject;
-                }
-                else
-                {
-                    return;
-                }
-            }
+            //for (int i = 0; i < roomVariants.transform.childCount; i++)
+            //{
+            //    GameObject variant = roomVariants.transform.GetChild(i).gameObject;
+            //    if (!variant.activeSelf)
+            //    {
+            //        continue;
+            //    }
+            //    if (variant.transform.Find("SpawnPointList") != null)
+            //    {
+            //        randomSpawnPoints = variant.transform.Find("SpawnPointList").gameObject;
+            //    }
+            //    else
+            //    {
+            //        return;
+            //    }
+            //}
             ActiveGates(true);
             SpawnWithinTrigger();
         }

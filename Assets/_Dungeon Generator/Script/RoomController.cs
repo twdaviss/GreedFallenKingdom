@@ -45,7 +45,7 @@ public class RoomController : MonoBehaviour
         if (!roomManager.currentRoomTotal.Contains(this))
         {
             roomManager.currentRoomCount.Add(this);
-            roomManager.currentRoomTotal.Add(this);
+            //roomManager.currentRoomTotal.Add(this);
         }
 
         if (roomVariant == "T" || roomVariant == "L" || roomVariant == "R" || roomVariant == "B")

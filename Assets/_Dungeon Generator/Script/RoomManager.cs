@@ -76,7 +76,7 @@ public class RoomManager : MonoBehaviour
         }
         if (bossSpawned && shopSpawned)
         {
-            CheckRoomsFinished();
+            CheckMapFinished();
         }
     }
 
@@ -84,19 +84,26 @@ public class RoomManager : MonoBehaviour
     {
         bossSpawned = false;
         shopSpawned = false;
-        currentRoomTotal.Clear();
+        //currentRoomTotal.Clear();
         currentRoomCount.Clear();
 
         GameObject newEntryRoom;
-        foreach(Transform child in transform)
+        foreach(RoomController room in currentRoomCount)
         {
-            Destroy(child.gameObject);
+            Destroy(room.gameObject);
         }
-        newEntryRoom = Instantiate(entryRoom);
-        newEntryRoom.transform.parent = this.transform;
+        if (loops > 0)
+        {
+            StartNewBranch();
+        }
+        else
+        {
+            newEntryRoom = Instantiate(entryRoom);
+            newEntryRoom.transform.parent = this.transform;
 
-        delaySpawnRoomCheck = false;
-        delaySpawnRoomType = 0.75F;
+            delaySpawnRoomCheck = false;
+            delaySpawnRoomType = 0.75F;
+        }
     }
 
     private void SpawnRoomTypes()
@@ -112,14 +119,14 @@ public class RoomManager : MonoBehaviour
             delaySpawnRoomCheck = true;
             delaySpawnRoomType = 0F;
         }
-        else if (currentRoomCount.Count == maxRooms && loops < 2 && key1Spawned)
-        {
-            StartNewBranch();
-            return;
-        }
         else if (!delaySpawnRoomCheck)
         {
             delaySpawnRoomType -= Time.deltaTime;
+        }
+        else
+        {
+            CheckBranchFinished();
+            return;
         }
     }
 
@@ -238,21 +245,37 @@ public class RoomManager : MonoBehaviour
         currentRoomCount[randomRoomIndex].SetSpecialRoomActive();
     }
 
-    public void CheckRoomsFinished()
+    public void CheckBranchFinished()
     {
         if (currentRoomCount.Count < minRooms || currentRoomCount.Count > maxRooms)
         {
             LoadScene();
             return;
         }
-        aStar.SetActive(true);
-        if(onRoomsGenerated != null)
+        else
         {
-            onRoomsGenerated();
+            foreach(RoomController room in currentRoomCount)
+            {
+                currentRoomTotal.Add(room);
+            }
+            roomsFinished = true;
         }
-        roomsFinished = true;
+        
         //this.GetComponent<RoomManager>().enabled = false;
         //StartNewBranch();
+    }
+    public void CheckMapFinished()
+    {
+        if(loops == 2)
+        {
+            aStar.SetActive(true);
+            if (onRoomsGenerated != null)
+            {
+                onRoomsGenerated();
+            }
+            roomsFinished = true;
+            return;
+        }
     }
     //public void CheckMapFinished()
     //{
@@ -277,22 +300,22 @@ public class RoomManager : MonoBehaviour
         {
             return;
         }
-        for (int i = currentRoomTotal.Count-1; i > 0; i--)
+        for (int i = currentRoomCount.Count-1; i > 0; i--)
         {
-            if (currentRoomTotal[i].currentRoomType == RoomType.normal)
+            if (currentRoomCount[i].currentRoomType == RoomType.normal)
             {
-                Destroy(currentRoomTotal[i].gameObject);
-                currentRoomTotal[i] = Instantiate(entryRoom, new Vector2(currentRoomCount[i].transform.position.x, currentRoomCount[i].transform.position.y), Quaternion.identity).GetComponent<RoomController>();
+                Destroy(currentRoomCount[i].gameObject);
+                RoomController newRoom = Instantiate(entryRoom, new Vector2(currentRoomCount[i].transform.position.x, currentRoomCount[i].transform.position.y), Quaternion.identity).GetComponent<RoomController>();
                 //currentRoomTotal.Remove(currentRoomCount[i]);
                 //currentRoomTotal[i] = newRoom.GetComponent<RoomController>();
-                currentRoomTotal[i].transform.parent = this.transform;
-                if (currentRoomTotal[i] != null)
+                newRoom.transform.parent = this.transform;
+                if (newRoom != null)
                 {
-                    currentRoomTotal[i].gameObject.GetComponentInChildren<GateManager>().locked = true;
+                    newRoom.gameObject.GetComponentInChildren<GateManager>().locked = true;
                 }
-                currentRoomCount.Clear();
-                currentRoomCount.Add(currentRoomTotal[i]);
-                currentRoomTotal.RemoveAt(currentRoomTotal.Count - 1);
+                //currentRoomCount.Clear();
+                //currentRoomCount.Add(currentRoomCount[i]);
+                //currentRoomTotal.RemoveAt(currentRoomTotal.Count - 1);
 
                 loops++;
                 delaySpawnRoomCheck = false;
