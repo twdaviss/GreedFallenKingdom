@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 4536764660341095809}
   - component: {fileID: 6190910729052278090}
   m_Layer: 0
-  m_Name: pfUpdateItem_BookOfHaste
+  m_Name: pfItem_BookOfHaste
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

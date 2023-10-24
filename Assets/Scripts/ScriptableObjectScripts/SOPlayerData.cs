@@ -89,6 +89,8 @@ public class SOPlayerData : ScriptableObject
     //===========================================================================
     public void SetBaseMaxHealth(int amount) { baseMaxHealth = amount; }
 
+    public void SetBaseMaxFuel(float amount) { ba_baseMaxFuel = amount; }
+
     //===========================================================================
     public void TransferData(SOPlayerData saveData)
     {

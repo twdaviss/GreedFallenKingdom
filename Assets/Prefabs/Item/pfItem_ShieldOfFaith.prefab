@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 7128766739216337672}
   - component: {fileID: 6861999084529177918}
   m_Layer: 0
-  m_Name: pfUpdateItem_ShieldOfFaith
+  m_Name: pfItem_ShieldOfFaith
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

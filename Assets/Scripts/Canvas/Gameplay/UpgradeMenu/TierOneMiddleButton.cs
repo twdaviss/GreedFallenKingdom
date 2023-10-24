@@ -4,11 +4,17 @@ public class TierOneMiddleButton : UpgradeMenuButton
 {
     public override void AppliedEffect()
     {
-        Debug.Log("Applied Tier 01 Middle Effect");
+        Player.Instance.GetComponentInChildren<BasicAbility>().UpdateMaxFuel(50);
+
+        PlayerDataManager.Instance.PlayerDataRuntime.SetBaseMaxFuel(Player.Instance.GetComponentInChildren<BasicAbility>().MaxFuel);
+        PlayerDataManager.Instance.SaveRunTimeDataToPlayerDataSlot();
     }
 
     public override void RemoveEffect()
     {
-        Debug.Log("Removed Tier 01 Middle Effect");
+        Player.Instance.GetComponentInChildren<BasicAbility>().ResetMaxFuel();
+
+        PlayerDataManager.Instance.PlayerDataRuntime.SetBaseMaxFuel(Player.Instance.GetComponentInChildren<BasicAbility>().MaxFuel);
+        PlayerDataManager.Instance.SaveRunTimeDataToPlayerDataSlot();
     }
 }
