@@ -97,6 +97,10 @@ public class RoomManager : MonoBehaviour
             delaySpawnRoomType = 0.75F;
             return;
         }
+        foreach (RoomController room in currentRoomCount)
+        {
+            Destroy(room.gameObject);
+        }
         currentRoomCount.Clear();
         GameObject newEntryRoom;
         newEntryRoom = Instantiate(entryRoom);
@@ -284,6 +288,10 @@ public class RoomManager : MonoBehaviour
         }
         else
         {
+            foreach (RoomController room in currentRoomCount)
+            {
+                Destroy(room.gameObject);
+            }
             currentRoomCount.Clear();
             roomsFinished = true;
             mapFinished = true;

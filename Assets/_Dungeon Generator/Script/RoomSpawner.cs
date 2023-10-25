@@ -11,7 +11,7 @@ public class RoomSpawner : MonoBehaviour
     [SerializeField] public bool spawned = false;
     [SerializeField] public bool destroyer;
 
-    private float waitTime = 10F;
+    //private float waitTime = 5F;
 
     private void Start()
     {
@@ -62,7 +62,10 @@ public class RoomSpawner : MonoBehaviour
     }
     private void DeleteRoom()
     {
-        Destroy(gameObject);
+        if (!destroyer)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void InstantiateRandomRoom(int length, GameObject[] room)
