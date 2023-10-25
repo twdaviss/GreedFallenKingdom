@@ -28,6 +28,7 @@ public class RoomController : MonoBehaviour
     [Header("Rooms ID")]
     public RoomType currentRoomType = RoomType.normal;
     public string roomVariant;
+    public bool added = false;
 
     [Space]
 
@@ -42,7 +43,17 @@ public class RoomController : MonoBehaviour
     private void Awake()
     {
         roomManager = FindObjectOfType<RoomManager>();
-        roomManager.currentRooms.Add(this);
+        if (currentRoomType == RoomType.entry)
+        {
+            int hi = 2;
+        }
+        roomManager.currentRoomCount.Add(this);
+
+        //if (!roomManager.currentRoomTotal.Contains(this.GetComponent<RoomController>()))
+        //{
+        //    roomManager.currentRoomCount.Add(this);
+        //    //roomManager.currentRoomTotal.Add(this);
+        //}
 
         if (roomVariant == "T" || roomVariant == "L" || roomVariant == "R" || roomVariant == "B")
         {
