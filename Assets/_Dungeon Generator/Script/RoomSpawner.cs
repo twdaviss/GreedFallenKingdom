@@ -11,17 +11,17 @@ public class RoomSpawner : MonoBehaviour
     [SerializeField] public bool spawned = false;
     [SerializeField] public bool destroyer;
 
-    private float waitTime = 4F;
-   
+    private float waitTime = 10F;
 
     private void Start()
     {
         roomManager = FindObjectOfType<RoomManager>();
         if (!destroyer)
         {
-            Destroy(gameObject, waitTime);
+            //Destroy(gameObject, waitTime);
             Invoke("Spawn", 0.05F);
         }
+        RoomManager.onRoomsGenerated += DeleteRoom;
     }
    
     private void Spawn()
@@ -59,6 +59,10 @@ public class RoomSpawner : MonoBehaviour
 
             spawned = true;
         }
+    }
+    private void DeleteRoom()
+    {
+        Destroy(gameObject);
     }
 
     private void InstantiateRandomRoom(int length, GameObject[] room)
@@ -98,5 +102,9 @@ public class RoomSpawner : MonoBehaviour
 
             spawned = true;
         }
+    }
+    private void OnDestroy()
+    {
+        RoomManager.onRoomsGenerated -= DeleteRoom;
     }
 }
